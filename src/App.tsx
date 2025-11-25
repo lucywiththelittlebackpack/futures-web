@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { AppLayout } from './components/layout/AppLayout';
 import { TrendAnalysis } from './components/features/TrendAnalysis';
-import { PriceChart } from './components/features/PriceChart';
+import { CandleChart } from './components/features/CandleChart';
 import { getFuturesData } from './lib/data-service';
 import type { FuturePair } from './lib/types';
 
@@ -22,30 +22,17 @@ function App() {
 
   return (
     <AppLayout selectedId={selectedId} onSelect={setSelectedId}>
-      <div className="p-8 max-w-7xl mx-auto h-full flex flex-col">
-        <motion.header
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-8 flex-shrink-0"
-        >
-          <h2 className="text-3xl font-heading font-bold bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent">
-            Market Overview
-          </h2>
-          <p className="text-muted-foreground mt-2">
-            Weekly trend analysis based on institutional flows and macro data.
-          </p>
-        </motion.header>
-
+      <div className="p-4 h-full flex flex-col">
         {selectedPair ? (
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 flex-1 min-h-0">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 flex-1 min-h-0">
             {/* Main Chart */}
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.1 }}
-              className="lg:col-span-2 rounded-xl glass-card border border-white/5 p-6 flex flex-col"
+              className="lg:col-span-2 rounded-xl glass-card border border-white/5 p-4 flex flex-col overflow-hidden"
             >
-              <PriceChart pair={selectedPair} />
+              <CandleChart pair={selectedPair} />
             </motion.div>
 
             {/* Trend Details */}
@@ -53,7 +40,7 @@ function App() {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.2 }}
-              className="rounded-xl glass-card border border-white/5 p-6 flex flex-col"
+              className="rounded-xl glass-card border border-white/5 p-4 flex flex-col"
             >
               <TrendAnalysis pair={selectedPair} />
             </motion.div>
